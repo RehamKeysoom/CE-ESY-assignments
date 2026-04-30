@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-
 /**
  * واجب (1) - لغة سي - CE-ESY26
  * تنفيذ المخزن الدائري (Circular Buffer)
- * الطالبة: رهام زيدان الكيصوم
- * الرقم الجامعي: 240129
  */
+#define SIZE 15
 
-#define SIZE 15 
-
+// تعريف هيكل المخزن الدائري
 typedef struct {
     char buffer[SIZE];
     int head;  
@@ -18,20 +15,24 @@ typedef struct {
     int count; 
 } CircularBuffer;
 
+// دالة تهيئة المخزن
 void init(CircularBuffer *cb) {
     cb->head = 0;
     cb->tail = 0;
     cb->count = 0;
 }
 
+// التحقق من حالة الامتلاء
 bool isFull(CircularBuffer *cb) {
     return cb->count == SIZE;
 }
 
+// التحقق من حالة الفراغ
 bool isEmpty(CircularBuffer *cb) {
     return cb->count == 0;
 }
 
+// دالة الكتابة في المخزن
 void write(CircularBuffer *cb, char data) {
     if (isFull(cb)) {
         printf("\n[Error] Buffer Overflow! Cannot write: %c\n", data);
@@ -42,6 +43,7 @@ void write(CircularBuffer *cb, char data) {
     cb->count++;
 }
 
+// دالة القراءة من المخزن
 char read(CircularBuffer *cb) {
     if (isEmpty(cb)) {
         printf("\n[Error] Buffer Underflow!\n");
